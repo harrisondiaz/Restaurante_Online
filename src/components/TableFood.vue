@@ -1,5 +1,8 @@
 <template>
-    <div>
+    <navbar address="Barbosa" ></navbar>
+    <div class="main-content">
+
+        <FoodPhoto/>
         <br />
         <div class="container">
             <div class="text-center mb-3">
@@ -36,17 +39,20 @@
             </div>
         </div>
     </div>
+    <Footer/>
 </template>
 
 <script>
 import CardFood from "@/components/CardFood.vue";
-import Fast_Food from '@/assets/Fast-Food.jpg';
 import Breakfast from '@/assets/breakfast.jpeg';
 import Lunch from '@/assets/Lunch.jpg';
 import Dinner from '@/assets/Dinner.jpg';
+import Footer from "@/components/Footer.vue";
+import Navbar from "@/components/Navbar.vue";
+import FoodPhoto from "@/components/FoodPhoto.vue";
 export default {
     name: "TableFood",
-    components: { CardFood },
+    components: { FoodPhoto, Navbar, Footer, CardFood },
     data() {
         return {
             platillos: [
@@ -140,9 +146,8 @@ export default {
                     categoria: 'CENA',
                     fecha_creacion: '2023-01-01 12:00:00',
                 },
-            ],categoriaSeleccionada: "Todas",
+            ],categoriaSeleccionada: "DESAYUNO" ,
             categorias: [
-                "Todas",
                 "DESAYUNO",
                 "ALMUERZO",
                 "CENA"
@@ -151,18 +156,12 @@ export default {
     },
     methods: {
         irACategoria(categoria) {
-            if (categoria === "Todas") {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-            } else {
-                this.$refs[`categoria-${categoria}`][0].scrollIntoView({
+                    this.$refs[`categoria-${categoria}`][0].scrollIntoView({
                     behavior: "smooth",
                 });
-            }
+
         },
         platillosPorCategoria(categoria) {
-            if (categoria === "Todas") {
-                return this.platillos;
-            }
             return this.platillos.filter(
                 (platillo) => platillo.categoria === categoria
             );
@@ -172,5 +171,6 @@ export default {
 </script>
 
 <style scoped>
+
 
 </style>

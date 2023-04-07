@@ -17,12 +17,13 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary">Iniciar sesión</button>
                                 <div class="mt-3">
-                                    <button type="button" class="btn btn-google me-2">
+                                    <button type="button" class="btn btn-google me-2" @click="signInWithGoogle">
                                         <icon-brand-google/> Iniciar sesión con Google
                                     </button>
-                                    <button type="button" class="btn btn-facebook">
+                                    <button type="button" class="btn btn-facebook" @click="signInWithFacebook">
                                         <icon-brand-facebook-filled/> Iniciar sesión con Facebook
                                     </button>
+
                                 </div>
                                 <p class="text-center mt-3">
                                     ¿No tienes cuenta? <a href="#" @click.prevent="toggleForms" class="text-primary">Registrarse</a>
@@ -80,8 +81,26 @@
 </template>
 
 <script>
+// Importa las funciones que necesitas de Firebase
+import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup } from "firebase/auth";
 import { IconBrandGoogle } from '@tabler/icons-vue';
 import { IconBrandFacebookFilled } from '@tabler/icons-vue';
+
+// Configuración de Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyA4je8Hj4YE7QdXc45JxFKMrIc5SA18d84",
+    authDomain: "restaonline-77461.firebaseapp.com",
+    projectId: "restaonline-77461",
+    storageBucket: "restaonline-77461.appspot.com",
+    messagingSenderId: "835150019775",
+    appId: "1:835150019775:web:adfb916bd5c185d9cd9a0a"
+};
+
+// Inicializa Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth();
+
 export default {
     data() {
         return {
@@ -99,19 +118,42 @@ export default {
         },
         register() {
             console.log("Registrando con:", this.registerEmail, this.registerPassword);
-// Proces
             // Procesar registro
         },
         toggleForms() {
             this.showRegisterForm = !this.showRegisterForm;
-        },submitLoginForm() {
+        },
+        signInWithGoogle() {
+            const provider = new GoogleAuthProvider();
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    console.log("Iniciando sesión con Google:", result);
+                    // ...
+                })
+                .catch((error) => {
+                    console.error("Error al iniciar sesión con Google:", error);
+                });
+        },
+        signInWithFacebook() {
+            const provider = new FacebookAuthProvider();
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    console.log("Iniciando sesión con Facebook:", result);
+                    // ...
+                })
+                .catch((error) => {
+                    console.error("Error al iniciar sesión con Facebook:", error);
+                });
+        },
+        submitLoginForm() {
             //...
         },
         submitRegisterForm() {
             console.log("Datos de registro:", this.register);
             // Aquí puedes procesar el formulario de registro, por ejemplo, enviando los datos a la API
         },
-    },components: {
+    },
+    components: {
         IconBrandGoogle,
         IconBrandFacebookFilled,
     },

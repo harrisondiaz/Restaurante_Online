@@ -1,7 +1,7 @@
 <template>
     <div class="food-photo">
-        <h2> ¡Tu comida al mejor alcance!</h2>
-        <div class="group">
+        <h2 id="food-photo-heading"> ¡Tu comida al mejor alcance!</h2>
+        <div class="group" role="list" aria-labelledby="food-photo-heading">
             <div
                 v-for="(image, index) in images"
                 :key="index"
@@ -9,6 +9,9 @@
                 :style="`--url: url('${image.url}')`"
                 @click="expand(index)"
                 ref="items"
+                role="listitem"
+                :aria-label="image.label"
+                tabindex="0"
             >
                 <div class="overlay" ref="overlays"></div>
                 <div class="menu" ref="menus">
@@ -93,8 +96,6 @@ export default {
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap");
 
-
-
 h2 {
     color: #c1783a;
     text-align: center;
@@ -121,7 +122,7 @@ h2 {
     position: relative;
     background-image: var(--url);
     background-position: center;
-    background-size: 75vh;
+    background-size: cover;
     margin: 1vw;
     border-radius: 3vw;
     display: inline-block;
@@ -159,4 +160,5 @@ h2 {
     overflow-x: hidden;
     text-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.5);
 }
+
 </style>

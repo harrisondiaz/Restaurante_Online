@@ -2,8 +2,10 @@
     <div>
         <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary bg-dark" data-bs-theme="dark">
             <div class="container-fluid">
+                <router-link to="/">
                 <img src="@/components/icons/logoMain.ico" alt="Logo" width="50" height="50">
                 <a class="navbar-brand name">RestaOnline</a>
+                </router-link>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -29,10 +31,10 @@
                                     <icon-search :size="15"></icon-search>
                                 </span>
                     </div>
-                    <div class="login navbar-nav me-auto " type="button">
+                    <router-link to="login"><div class="login navbar-nav me-auto " type="button">
                             <icon-user  size="20"></icon-user>
                     <p class="login ">Ingresar</p>
-                    </div>
+                    </div></router-link>
                     <div style="margin-right: 30px;margin-left: 10px"></div>
                     <div class="d-flex" style="height: 40px;">
                         <div class="vr"></div>
@@ -70,6 +72,11 @@ export default {
 </script>
 
 <style scoped>
+nav.navbar {
+
+    display: block;
+}
+
 .name {
     font-size: 30px;
     //font-family: Forte;
