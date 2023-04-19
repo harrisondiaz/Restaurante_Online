@@ -35,6 +35,48 @@
                                 </select>
                             </div>
 
+                            <div class="form-group mb-3">
+                                <label for="ingredientes" class="form-label">Ingredientes personalizados</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="ingredientes"
+                                    v-model="nuevoIngrediente"
+                                />
+                                <button @click.prevent="agregarIngrediente" class="btn btn-info mt-2">Agregar ingrediente</button>
+                                <ul class="list-group mt-2">
+                                    <li
+                                        v-for="(ingrediente, index) in platillo.ingredientes"
+                                        :key="index"
+                                        class="list-group-item d-flex justify-content-between align-items-center"
+                                    >
+                                        {{ ingrediente }}
+                                        <button @click.prevent="eliminarIngrediente(index)" class="btn btn-danger btn-sm">Eliminar</button>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="bebidas" class="form-label">Bebidas personalizadas</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="bebidas"
+                                    v-model="nuevaBebida"
+                                />
+                                <button @click.prevent="agregarBebida" class="btn btn-info mt-2">Agregar bebida</button>
+                                <ul class="list-group mt-2">
+                                    <li
+                                        v-for="(bebida, index) in platillo.bebidas"
+                                        :key="index"
+                                        class="list-group-item d-flex justify-content-between align-items-center"
+                                    >
+                                        {{ bebida }}
+                                        <button @click.prevent="eliminarBebida(index)" class="btn btn-danger btn-sm">Eliminar</button>
+                                    </li>
+                                </ul>
+                            </div>
+
                             <button type="submit" class="btn btn-dark border">Agregar platillo</button>
                         </form>
                     </div>
@@ -54,21 +96,43 @@ export default {
                 imagen: null,
                 precio: "",
                 categoria: null,
+                ingredientes: [],
+                bebidas: [],
             },
             categorias: ["DESAYUNO", "ALMUERZO", "CENA"],
+            nuevoIngrediente: "",
+            nuevaBebida: "",
         };
     },
     methods: {
-        submitForm() {
-            console.log("Datos del platillo:", this.platillo);
-            // Aquí puedes procesar el formulario, por ejemplo, enviando los datos a la API
-        },
         onFileSelected(event) {
             this.platillo.imagen = event.target.files[0];
+        },
+        agregarIngrediente() {
+            if (this.nuevoIngrediente.trim() !== "") {
+                this.platillo.ingredientes.push(this.nuevoIngrediente);
+                this.nuevoIngrediente = "";
+            }
+        },
+        eliminarIngrediente(index) {
+            this.platillo.ingredientes.splice(index, 1);
+        },
+        agregarBebida() {
+            if (this.nuevaBebida.trim() !== "") {
+                this.platillo.bebidas.push(this.nuevaBebida);
+                this.nuevaBebida = "";
+            }
+        },
+        eliminarBebida(index) {
+            this.platillo.bebidas.splice(index, 1);
+        },
+        async submitForm() {
+            // Aquí puedes agregar la lógica para guardar el platillo en la base de datos
         },
     },
 };
 </script>
+
 
 <style scoped>
 .card {

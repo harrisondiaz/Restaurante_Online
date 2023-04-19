@@ -7,7 +7,7 @@
         <path d="M17 17h-11v-14h-2"></path>
         <path d="M6 5l14 1l-1 7h-13"></path>
     </svg>
-    Comprar
+    <span>Comprar Ahora</span>
 </button>
 </template>
 
@@ -38,7 +38,7 @@ export default {
 }
 
 .btn-shoping:hover svg{
-    transform: translateX(2em);
+    transform: translateX(3em);
     transition: transform .7s;
 }
 

@@ -1,43 +1,66 @@
 <template>
-    <div class="dish-container">
-        <h2>{{ dish.name }}</h2>
-        <img :src="dish.imageUrl" alt="Dish Image" class="dish-image" />
-        <p>{{ dish.description }}</p>
-        <h3>Opciones personalizables:</h3>
-        <ul>
-            <li v-for="(option, index) in dish.customizationOptions" :key="index">
-                <input
-                        type="checkbox"
-                        :id="option.label"
-                        v-model="option.selected"
-                />
-                <label :for="option.label">{{ option.label }}</label>
-            </li>
-        </ul>
-        <div class="buttons">
-            <button @click="addToCart">Añadir al carrito</button>
-            <button @click="buyNow">Comprar ahora</button>
+    <div v-if="dish" class="dish-container">
+        <div class="left-side">
+            <img src="@/assets/Fast-Food.jpg" alt="Dish" />
         </div>
+        <div class="right-side">
+            <h2>{{ dish.name }}</h2>
+            <p>{{ dish.description }}</p>
+            <h3>Opciones de personalización:</h3>
+            <div class="customization-options">
+                <div v-for="(option, index) in dish.customizationOptions" :key="index" class="option">
+                    <input
+                        type="checkbox"
+                        :id="`option-${index}`"
+                        v-model="option.selected"
+                    />
+                    <label :for="`option-${index}`">{{ option.label }}</label>
+                </div>
+            </div>
+            <h3>Selecciona una bebida:</h3>
+            <select v-model="selectedBeverage" class="beverage-select">
+                <option v-for="(beverage, index) in dish.beverages" :key="index" :value="beverage">
+                    {{ beverage.label }}
+                </option>
+            </select>
+            <div class="buttons">
+                <add-car-shopping @click="addToCart"/>
+                <ShoppingBTN @click="buyNow"/>
+            </div>
+        </div>
+    </div>
+    <div v-else>
+        <p>Error: No se ha proporcionado información sobre el platillo.</p>
     </div>
 </template>
 
 <script>
+import ShoppingBTN from "@/components/ShoppingBTN.vue";
+import AddCarShopping from "@/components/AddCarShopping.vue";
 export default {
+    name: "PlatoCompleted",
     props: {
         dish: {
             type: Object,
             required: true,
         },
     },
+    data() {
+        return {
+            selectedBeverage: "",
+        };
+    },
     methods: {
         addToCart() {
-            // Añadir el platillo al carrito
-            console.log("Añadir al carrito:", this.dish);
+            console.log("Añadir al carrito");
         },
         buyNow() {
-            // Comprar el platillo directamente
-            console.log("Comprar ahora:", this.dish);
+            console.log("Comprar ahora");
         },
+    },
+    components: {
+        ShoppingBTN,
+        AddCarShopping
     },
 };
 </script>
@@ -45,46 +68,109 @@ export default {
 <style scoped>
 .dish-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid #ccc;
+    justify-content: space-between;
+    align-items: flex-start;
     padding: 1rem;
-    border-radius: 10px;
-    max-width: 400px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
-h2 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+.left-side {
+    width: 50%;
+    padding-right: 1rem;
 }
 
-.dish-image {
+.right-side {
+    width: 50%;
+    padding-left: 1rem;
+}
+
+img {
     width: 100%;
-    height: auto;
     object-fit: cover;
-    margin-bottom: 1rem;
+    border-radius: 8px;
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+.customization-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+}
+
+.beverage-select {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
 }
 
 .buttons {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
     margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
 }
 
 button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
+    padding: 0.75rem 1.5rem;
     font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #0056b3;
+.cart-btn {
+    background-color: #f1c40f;
+    color: #ffffff;
+}
+
+.cart-btn:hover {
+    background-color: #d4ad0c;
+}
+.buy-btn {
+    background-color: #2ecc71;
+    color: #ffffff;
+}
+
+.buy-btn:hover {
+    background-color: #28a745;
+}
+
+@media (max-width: 767px) {
+    .dish-container {
+        flex-direction: column;
+    }
+
+    .left-side,
+    .right-side {
+        width: 100%;
+    }
+
+    .left-side {
+        padding-right: 0;
+        margin-bottom: 1rem;
+    }
+
+    .right-side {
+        padding-left: 0;
+    }
 }
 </style>

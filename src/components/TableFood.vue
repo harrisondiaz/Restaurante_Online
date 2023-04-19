@@ -29,10 +29,8 @@
                         class="col-md-3 mb-3 d-flex align-items-stretch"
                     >
                         <CardFood
-                            :title="item.nombre"
-                            :description="item.descripcion"
-                            :price="item.precio"
-                            :image="item.imagen"
+                            :dish="item"
+                            @click="viewDish(item)"
                         />
                     </div>
                 </div>
@@ -57,94 +55,76 @@ export default {
         return {
             platillos: [
                 {
-                    id: 1,
-                    nombre: 'Huevos Rancheros',
-                    descripcion: 'Huevos estrellados sobre tortilla con salsa ranchera picante.',
-                    imagen: Breakfast,
-                    precio: "$22500", // COP
-                    categoria: 'DESAYUNO',
-                    fecha_creacion: '2023-01-01 12:00:00',
-                },
-                {
-                    id: 2,
-                    nombre: 'Ensalada César',
-                    descripcion: 'Ensalada fresca con lechuga romana, croutons, pollo a la parrilla y aderezo César.',
-                    imagen: Lunch,
-                    precio: "$35000", // COP
-                    categoria: 'ALMUERZO',
-                    fecha_creacion: '2023-01-01 12:00:00',
-                },
-                {
-                    id: 3,
-                    nombre: 'Spaghetti Carbonara',
-                    descripcion: 'Pasta spaghetti con salsa carbonara cremosa, bacon y queso parmesano.',
-                    imagen: Dinner,
-                    precio: "$40000", // COP
-                    categoria: 'CENA',
-                    fecha_creacion: '2023-01-01 12:00:00',
-                },
-                {
-                    id: 4,
-                    nombre: 'Arepas Rellenas',
-                    descripcion: 'Arepas rellenas de carne desmechada, queso y aguacate.',
-                    imagen: Breakfast,
-                    precio: "$20000", // COP
-                    categoria: 'DESAYUNO',
-                    fecha_creacion: '2023-01-01 12:00:00',
-                },
-                {
-                    id: 5,
-                    nombre: 'Sopa de Lentejas',
-                    descripcion: 'Sopa de lentejas con zanahoria, papa, apio y cilantro.',
-                    imagen: Lunch,
-                    precio: "$18000", // COP
-                    categoria: 'ALMUERZO',
-                    fecha_creacion: '2023-01-01 12:00:00',
-                },
-                {
                     id: 6,
-                    nombre: 'Pescado a la Plancha',
-                    descripcion: 'Filete de pescado a la plancha con salsa de limón y guarnición de vegetales.',
-                    imagen: Dinner,
-                    precio: "$45000", // COP
-                    categoria: 'CENA',
-                    fecha_creacion: '2023-01-01 12:00:00',
+                    name: "Risotto de Hongos",
+                    imageUrl: Dinner,
+                    description: "Delicioso risotto de arroz cremoso con hongos, queso parmesano y perejil.",
+                    price: "$28.000",
+                    category: "CENA",
+                    customizationOptions: [
+                        { label: "Sin queso", selected: false },
+                        { label: "Extra hongos", selected: false },
+                        { label: "Ajo", selected: false },
+                    ],
+                    beverages: [
+                        { label: "Vino tinto", selected: false },
+                        { label: "Agua mineral", selected: false },
+                        { label: "Cerveza", selected: false },
+                    ],
                 },
                 {
                     id: 7,
-                    nombre: 'Tostadas Francesas',
-                    descripcion: 'Tostadas francesas con miel de maple y frutas frescas.',
-                    imagen: Breakfast,
-                    precio: "$23000", // COP
-                    categoria: 'DESAYUNO',
-                    fecha_creacion: '2023-01-01 12:00:00',
+                    name: "Avena con Frutas",
+                    imageUrl: Breakfast,
+                    description: "Avena cocida con leche, trozos de manzana, plátano y arándanos.",
+                    price: "$15.000",
+                    category: "DESAYUNO",
+                    customizationOptions: [
+                        { label: "Sin manzana", selected: false },
+                        { label: "Extra plátano", selected: false },
+                        { label: "Leche de almendras", selected: false },
+                    ],
+                    beverages: [
+                        { label: "Café", selected: false },
+                        { label: "Jugo de naranja", selected: false },
+                        { label: "Agua mineral", selected: false },
+                    ],
                 },
                 {
                     id: 8,
-                    nombre: 'Wrap de Pollo',
-                    descripcion: 'Wrap de pollo con lechuga, tomate, queso y aderezo ranch.',
-                    imagen: Lunch,
-                    precio: "$30000", // COP
-                    categoria: 'ALMUERZO',
-                    fecha_creacion: '2023-01-01 12:00:00',
+                    name: "Wrap de Pollo y Verduras",
+                    imageUrl: Lunch,
+                    description: "Wrap de pollo a la parrilla, lechuga, tomate, cebolla y aderezo de yogur.",
+                    price: "$20.000",
+                    category: "ALMUERZO",
+                    customizationOptions: [
+                        { label: "Sin pollo", selected: false },
+                        { label: "Extra verduras", selected: false },
+                        { label: "Aderezo picante", selected: false },
+                    ],
+                    beverages: [
+                        { label: "Coca Cola", selected: false },
+                        { label: "Sprite", selected: false },
+                        { label: "Agua mineral", selected: false },
+                    ],
                 },
                 {
                     id: 9,
-                    nombre: 'Ceviche de Camarón',
-                    descripcion: 'Ceviche de camarón con cebolla morada, cilantro, tomate y limón.',
-                    imagen: Lunch,
-                    precio: "$48000", // COP
-                    categoria: 'ALMUERZO',
-                    fecha_creacion: '2023-01-01 12:00:00',
-                },
-                {
-                    id: 10,
-                    nombre: 'Lomo Saltado',
-                    descripcion: 'Tiras de lomo de res salteadas con cebolla, tomate, pimiento y salsa de soya, acompañadas de papas fritas y arroz.',
-                    imagen: Dinner,
-                    precio: "$52000", // COP
-                    categoria: 'CENA',
-                    fecha_creacion: '2023-01-01 12:00:00',
+                    name: "Pasta Carbonara",
+                    imageUrl: Dinner,
+                    description: "Pasta con salsa carbonara a base de huevo, queso parmesano, panceta y pimienta negra.",
+                    price: "$27.000",
+                    category: "Cena",
+                    customizationOptions: [
+                        { label: "Sin panceta", selected: false },
+                        { label: "Extra queso", selected: false },
+                        { label: "Espárragos", selected: false },
+                    ],
+                    beverages: [
+                        { label: "Vino tinto", selected: false },
+                        { label: "Agua mineral", selected: false },
+                        { label: "Cerveza", selected: false },
+                    ],
                 },
             ],categoriaSeleccionada: "DESAYUNO" ,
             categorias: [
@@ -163,9 +143,14 @@ export default {
         },
         platillosPorCategoria(categoria) {
             return this.platillos.filter(
-                (platillo) => platillo.categoria === categoria
+                (platillo) => platillo.category === categoria
             );
         },
+        viewDish(item) {
+                this.$router.push({ name: "platillo", params: { id: item.id } });
+
+        },
+
     },
 };
 </script>

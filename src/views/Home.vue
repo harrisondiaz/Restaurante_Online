@@ -1,9 +1,10 @@
 <template>
-<!--<Navbar/>
+<Navbar/>
   <div style="margin-top: 6em"/>
 
-  <TableFood/>-->
-  <PlatoCompleted :dish="dish"></PlatoCompleted>
+ <TableFood />
+  <!--<AddPlatillo/>-->
+
 </template>
 
 <script>
@@ -11,7 +12,7 @@ import Navbar from "@/components/Navbar.vue";
 import FoodPhoto from "@/components/FoodPhoto.vue";
 import TableFood from "@/components/TableFood.vue";
 import CookieBanner from "@/components/CookieBanner.vue";
-
+import AddPlatillo from "@/components/AddPlatillo.vue";
 import PlatoCompleted from "@/components/PlatoCompleted.vue";
 import Plate from "@/assets/breakfast.jpeg"
 export default {
@@ -20,7 +21,7 @@ export default {
         Navbar,
         FoodPhoto,
         TableFood,
-        CookieBanner,PlatoCompleted
+        CookieBanner,PlatoCompleted,AddPlatillo
     },data() {
         return {
             dish: {
@@ -28,14 +29,24 @@ export default {
                 imageUrl: Plate,
                 description:
                     "Una deliciosa pizza Margherita hecha con tomate, mozzarella y albahaca fresca.",
+                price: 10.000,
                 customizationOptions: [
                     { label: "Sin gluten", selected: false },
                     { label: "Extra queso", selected: false },
                     { label: "Cebolla", selected: false },
                 ],
+                beverages: [
+                    { label: "Coca Cola", selected: false },
+                    { label: "Sprite", selected: false },
+                    { label: "Agua mineral", selected: false },
+                ],
             },
+
+
         };
-    },
+    },methods: {
+
+    }
 }
 </script>
 

@@ -1,9 +1,6 @@
 <template>
     <router-link to="/">
-    <div class="back">
-        <icon-arrow-narrow-left size="50"/>
-        Regresar
-    </div>
+    <back-button/>
     </router-link>
     <div class="full">
     <log-in/>
@@ -12,12 +9,14 @@
 
 <script>
 import LogIn from "@/components/LogIn.vue";
+import BackButton from "@/components/BackButton.vue";
 import { IconArrowNarrowLeft } from '@tabler/icons-vue';
 export default {
     name: "LogInView",
     components: {
         LogIn,
-        IconArrowNarrowLeft
+        IconArrowNarrowLeft,
+        BackButton
     }
 }
 </script>

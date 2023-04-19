@@ -22,7 +22,13 @@ const router = createRouter({
         path: '/login',
         name: 'login',
         component: LoginView
-    }
+    },{
+          path: '/platillo/:id',
+          name: 'platillo',
+          component: () => import(/* webpackChunkName: "about" */ '../views/PlateCompleted.vue'),
+          props: true
+      },
+
   ]
 })
 

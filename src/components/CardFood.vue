@@ -1,15 +1,16 @@
 <template>
-    <div class="card text-bg-dark mb-3" style="max-width: 540px;">
+    <div class="card text-bg-dark mb-3 clicked" style="max-width: 540px;" @click="clicked">
         <div class="row g-0">
             <div class="col-md-8">
                 <div class="card-body">
-                    <h5 class="card-title">{{ title }}</h5>
-                    <p class="card-text">{{ description }}</p>
-                    <p class="card-text"><strong>{{ price }}</strong></p>
+                    <h5 class="card-title">{{ dish.name }}</h5>
+                    <p class="card-text">{{ dish.description }}</p>
+                    <p class="card-text"><strong>{{ dish.price }}</strong></p>
+
                 </div>
             </div>
             <div class="col-md-4 d-flex align-items-stretch">
-                <img :src="image" class="img-fluid rounded-end w-100 h-100" style="object-fit: cover;" :alt="description" />
+                <img :src="dish.imageUrl" class="img-fluid rounded-end w-100 h-100" style="object-fit: cover;" :alt="dish.description" />
             </div>
         </div>
     </div>
@@ -19,18 +20,21 @@
 export default {
     name: "CardFood",
     props: {
-        title: String,
-        description: {
-            type: String,
-            default: "No hay descripción",
-        },
-        image: {
-            type: String,
-            require: true,
-        },
-        price: String,
-    },
+        dish: {
+            type: Object,
+            required: true,
+        }
+    },methods:{
+        clicked(){
+            console.log(this.dish);
+        }
+    }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.clicked{
+    cursor: pointer;
+    user-select: none;
+}
+</style>
