@@ -1,14 +1,14 @@
 <template>
     <div v-if="dish" class="dish-container">
         <div class="left-side">
-            <img src="@/assets/Fast-Food.jpg" alt="Dish" />
+            <img :src="dish.image" alt="Dish" />
         </div>
         <div class="right-side">
             <h2>{{ dish.name }}</h2>
             <p>{{ dish.description }}</p>
             <h3>Opciones de personalización:</h3>
             <div class="customization-options">
-                <div v-for="(option, index) in dish.customizationOptions" :key="index" class="option">
+                <div v-for="(option, index) in dish.addons" :key="index" class="option">
                     <input
                         type="checkbox"
                         :id="`option-${index}`"
@@ -17,10 +17,10 @@
                     <label :for="`option-${index}`">{{ option.label }}</label>
                 </div>
             </div>
-            <h3>Selecciona una bebida:</h3>
+            <p class="h6">Selecciona:</p>
             <select v-model="selectedBeverage" class="beverage-select">
-                <option v-for="(beverage, index) in dish.beverages" :key="index" :value="beverage">
-                    {{ beverage.label }}
+                <option v-for="(beverage, index) in addons" :key="index" :value="beverage">
+                    {{ beverage.name }}
                 </option>
             </select>
             <div class="buttons">
@@ -35,22 +35,42 @@
 </template>
 
 <script>
+import axios from 'axios';
 import ShoppingBTN from "@/components/ShoppingBTN.vue";
 import AddCarShopping from "@/components/AddCarShopping.vue";
 export default {
     name: "PlatoCompleted",
     props: {
-        dish: {
-            type: Object,
+        dishID: {
+            type: [Number,String],
             required: true,
         },
     },
     data() {
         return {
+          dish: null,
             selectedBeverage: "",
+          addons: null,
         };
     },
     methods: {
+      async fetchDish() {
+        try {
+          const response = await axios.get(`/api/dishes/${this.dishID}`);
+          this.dish = response.data;
+        } catch (error) {
+          console.error('Hubo un error al obtener los datos del platillo:', error);
+        }
+      },async fetchAddons(){
+        try {
+        const response = await axios.get('/api/addons');
+        this.addons = response.data;
+
+        }catch (error) {
+          console.error('Hubo un error al obtener los datos del platillo:', error);
+        }
+
+      },
         addToCart() {
             console.log("Añadir al carrito");
         },
@@ -62,6 +82,11 @@ export default {
         ShoppingBTN,
         AddCarShopping
     },
+    created() {
+      this.fetchDish();
+      this.fetchAddons();
+      console.log();
+    }
 };
 </script>
 

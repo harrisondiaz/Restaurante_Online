@@ -3,7 +3,7 @@
     <back-button/>
   </router-link>
   <div class="full">
-    <log-in @auth-error="handleAuthError" />
+    <log-in/>
   </div>
   <div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index: 1100;">
     <div id="errorToast" class="toast bg-dark text-white" role="alert" aria-live="assertive" aria-atomic="true">
@@ -21,33 +21,36 @@
 <script>
 import LogIn from "@/components/LogIn.vue";
 import BackButton from "@/components/BackButton.vue";
-import { IconArrowNarrowLeft } from '@tabler/icons-vue';
-import { Toast } from 'bootstrap';
+import {IconArrowNarrowLeft} from '@tabler/icons-vue';
+import {Toast} from 'bootstrap';
 
 export default {
   name: "LogInView",
   components: {
     LogIn,
     IconArrowNarrowLeft,
-    BackButton,
+    BackButton
   },
   data() {
     return {
       errorMessage: '',
+      errorToast: null
     };
   },
-  methods: {
-    handleAuthError(message) {
-      this.errorMessage = message;
-      const errorToast = new Toast(document.getElementById('errorToast'));
-      errorToast.show();
-    },
+  mounted() {
+    this.errorToast = new Toast(document.getElementById("errorToast"));
   },
-};
+  methods: {
+    showErrorToast(message) {
+      this.errorMessage = message;
+      this.errorToast.show();
+    }
+  }
+}
 </script>
 
 <style scoped>
-.back{
+.back {
   position: static;
   top: 0;
   left: 0;
